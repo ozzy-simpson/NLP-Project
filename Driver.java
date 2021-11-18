@@ -16,18 +16,24 @@ public class Driver{
             int lineNr = 1;
             while (rowScanner.hasNext()) {
                 String value = rowScanner.next();
-                if (lineNr == 3) {
-                    String[] date = value.split(" ");
-                    value = "\"" + date[1] + " " + date[2] + ", " + date[5];
+                if (lineNr == 3) { // Date column
+                    value = formatDate(value);
                 }
-                if (lineNr == 6 || lineNr == 7) {
-                    value = "\"" + value.replaceAll("\\p{Punct}","") + "\"";
+                if (lineNr >= 6) { // Tweet content
+                    value = removePunct(value);
                 }
                 values.add(value);
                 lineNr++;
             }
         }
         return values;
+    }
+    private static String formatDate(String line) {
+        String[] date = line.split(" ");
+        return "\"" + date[1] + " " + date[2] + ", " + date[5];
+    }
+    private static String removePunct(String line) {
+        return "\"" + line.replaceAll("\\p{Punct}","") + "\"";
     }
     public static void main(String[] args) {
         try {
