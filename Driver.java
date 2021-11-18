@@ -1,5 +1,6 @@
 // Driver code taken from https://www.w3schools.com/java/java_files_read.asp
-// Code to convert CSV data to arraylist taken from https://www.baeldung.com/java-csv-file-array
+// Code to convert CSV data to arraylist adapted from https://www.baeldung.com/java-csv-file-array
+// Punctuation replacement from https://www.studytonight.com/java-examples/how-to-remove-punctuation-from-string-in-java
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,9 +12,15 @@ public class Driver{
     private static List<String> getRecordFromLine(String line) {
         List<String> values = new ArrayList<String>();
         try (Scanner rowScanner = new Scanner(line)) {
-            rowScanner.useDelimiter("\",\"");
+            rowScanner.useDelimiter(",");
+            int lineNr = 1;
             while (rowScanner.hasNext()) {
-                values.add(rowScanner.next());
+                String value = rowScanner.next();
+                if (lineNr == 6 || lineNr == 7) {
+                    value = "\"" + value.replaceAll("\\p{Punct}","") + "\"";
+                }
+                values.add(value);
+                lineNr++;
             }
         }
         return values;
