@@ -16,6 +16,10 @@ public class Driver{
             int lineNr = 1;
             while (rowScanner.hasNext()) {
                 String value = rowScanner.next();
+                if (lineNr == 3) {
+                    String[] date = value.split(" ");
+                    value = "\"" + date[1] + " " + date[2] + ", " + date[5];
+                }
                 if (lineNr == 6 || lineNr == 7) {
                     value = "\"" + value.replaceAll("\\p{Punct}","") + "\"";
                 }
@@ -32,8 +36,6 @@ public class Driver{
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 records.add(getRecordFromLine(myReader.nextLine()));
-                /*String data = myReader.nextLine();
-                System.out.println(data);*/
             }
             System.out.println(records);
             myReader.close();
