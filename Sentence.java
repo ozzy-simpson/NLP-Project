@@ -3,6 +3,10 @@ public class Sentence{
     private String author;
     private String timestamp;
 
+    public Sentence() {
+
+    }
+
     public Sentence(String t, String a, String ts) {    
         text = t;
         author = a;
@@ -39,8 +43,21 @@ public class Sentence{
     public String toString() {
         return "{author:" + author + ", sentence:\"" + text + "\", timestamp:\"" + timestamp + "\"}";
     }
-    public static void main(String[] args){
 
+    public static Sentence convertLine(String line) {
+
+        String[] values = line.split("\", \"");
+        String author = values[4];
+        String timestamp = values[2];
+        String text = values[5];
+        
+        Sentence converted = new Sentence(text, author, timestamp);
+
+        return converted;
+    }
+    public static void main(String[] args){
+        String line = "\"0\", \"14075\", \"Jun 14, 2009\", \"iran\", \"plutopup7\", \"Trouble in Iran\", I see Hmm Iran Iran so far away flockofseagullsweregeopoliticallycorrect\"";
+        System.out.println(convertLine(line));
     }
 
 }

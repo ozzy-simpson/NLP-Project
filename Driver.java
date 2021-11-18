@@ -1,4 +1,4 @@
-// Driver code taken from https://www.w3schools.com/java/java_files_read.asp
+// Initial driver code taken from https://www.w3schools.com/java/java_files_read.asp
 // Code to convert CSV data to arraylist adapted from https://www.baeldung.com/java-csv-file-array
 // Punctuation replacement from https://www.studytonight.com/java-examples/how-to-remove-punctuation-from-string-in-java
 
@@ -29,6 +29,7 @@ public class Driver{
         return values;
     }
     private static String formatDate(String line) {
+        // Example input format required: Mon May 11 03:18:03 UTC 2009
         String[] date = line.split(" ");
         return "\"" + date[1] + " " + date[2] + ", " + date[5];
     }
