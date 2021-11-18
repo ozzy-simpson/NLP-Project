@@ -11,6 +11,7 @@ public class Driver{
     private static List<String> getRecordFromLine(String line) {
         List<String> values = new ArrayList<String>();
         try (Scanner rowScanner = new Scanner(line)) {
+            rowScanner.useDelimiter("\",\"");
             while (rowScanner.hasNext()) {
                 values.add(rowScanner.next());
             }
