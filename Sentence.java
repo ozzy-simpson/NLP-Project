@@ -3,10 +3,6 @@ public class Sentence{
     private String author;
     private String timestamp;
 
-    public Sentence() {
-
-    }
-
     public Sentence(String t, String a, String ts) {    
         text = t;
         author = a;
