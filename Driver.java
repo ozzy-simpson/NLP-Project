@@ -19,7 +19,7 @@ public class Driver{
     }
 
     private static String formatDate(String timestamp) {
-        // Example input format required: Mon May 11 03:18:03 UTC 2009
+        // Input format: Mon May 11 03:18:03 UTC 2009
         String[] date = timestamp.split(" ");
         return date[1] + " " + date[2] + " " + date[5].replaceAll("\"","");
     }

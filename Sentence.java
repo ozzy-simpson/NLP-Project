@@ -47,7 +47,7 @@ public class Sentence{
     public static void main(String[] args){
     }
 
-    @Override
+    @Override // Adapted from https://www.infoworld.com/article/3305792/comparing-java-objects-with-equals-and-hashcode.html
     public boolean equals(Object o) {
         if (this == o) {
             return true;
