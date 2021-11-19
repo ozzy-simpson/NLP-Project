@@ -58,6 +58,5 @@ public class Driver{
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        System.out.println(formatDate("Mon May 11 03:18:03 UTC 2009"));
     }
 }
