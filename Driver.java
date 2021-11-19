@@ -28,14 +28,27 @@ public class Driver{
         }
         return values;
     }
-    private static String formatDate(String line) {
+    private static String formatDate(String timestamp) {
         // Example input format required: Mon May 11 03:18:03 UTC 2009
-        String[] date = line.split(" ");
+        String[] date = timestamp.split(" ");
         return "\"" + date[1] + " " + date[2] + ", " + date[5];
     }
     private static String removePunct(String line) {
         return "\"" + line.replaceAll("\\p{Punct}","") + "\"";
     }
+
+    public static Sentence convertLine(String line) {
+
+        String[] values = line.split("\", \"");
+        String author = values[4];
+        String timestamp = values[2];
+        String text = values[5];
+        
+        Sentence converted = new Sentence(text, author, timestamp);
+
+        return converted;
+    }
+
     public static void main(String[] args) {
         try {
             List<List<String>> records = new ArrayList<>();
