@@ -21,7 +21,7 @@ public class Driver{
     private static String formatDate(String timestamp) {
         // Example input format required: Mon May 11 03:18:03 UTC 2009
         String[] date = timestamp.split(" ");
-        return date[1] + " " + date[2] + ", " + date[5].replaceAll("\"","");
+        return date[1] + " " + date[2] + " " + date[5].replaceAll("\"","");
     }
     
     private static String removePunct(String line) {
@@ -38,7 +38,6 @@ public class Driver{
             while (myReader.hasNextLine()) {
                 records.add(convertLine(myReader.nextLine()));
             }
-            System.out.println(records);
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");

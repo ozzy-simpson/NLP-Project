@@ -47,4 +47,18 @@ public class Sentence{
     public static void main(String[] args){
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Sentence sentence = (Sentence) o;
+        return text.equals(sentence.text) &&
+                author.equals(sentence.author) &&
+                timestamp.equals(sentence.timestamp);
+    }
+
 }
