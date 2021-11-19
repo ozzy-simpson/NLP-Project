@@ -6,6 +6,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.text.ParseException;
+import java.util.TimeZone;
 
 public class Driver{
     public static Sentence convertLine(String line) {
@@ -19,9 +24,19 @@ public class Driver{
     }
 
     private static String formatDate(String timestamp) {
-        // Input format: Mon May 11 03:18:03 UTC 2009
-        String[] date = timestamp.split(" ");
-        return date[1] + " " + date[2] + " " + date[5].replaceAll("\"","");
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",Locale.ENGLISH);
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC")); // https://stackoverflow.com/a/19115247
+            Date date = sdf.parse(timestamp);
+            SimpleDateFormat newDate = new SimpleDateFormat("MMM dd yyyy");
+            newDate.setTimeZone(TimeZone.getTimeZone("UTC")); // https://stackoverflow.com/a/19115247
+            String formattedDate = newDate.format(date);
+
+            return formattedDate;
+        } catch (ParseException e) { // https://stackoverflow.com/a/28960155
+            e.printStackTrace();
+            return timestamp;
+        }
     }
     
     private static String removePunct(String line) {
@@ -43,5 +58,6 @@ public class Driver{
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+        System.out.println(formatDate("Mon May 11 03:18:03 UTC 2009"));
     }
 }
