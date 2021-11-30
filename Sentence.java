@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Sentence{
     private String text;
     private String author;
@@ -38,6 +41,11 @@ public class Sentence{
 
     public String toString() {
         return "{author:" + author + ", sentence:\"" + text + "\", timestamp:\"" + timestamp + "\"}";
+    }
+
+    public ArrayList<String> splitSentence(String sentence) {
+        ArrayList<String> words = new ArrayList<String>(Arrays.asList(sentence.split(" "))); // Adapted from https://stackoverflow.com/a/7488710
+        return words;
     }
 
     public static void main(String[] args){
