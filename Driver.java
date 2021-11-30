@@ -75,6 +75,24 @@ public class Driver {
                     }
                 }
             }
+
+            Map.Entry<String, Integer> maxEntry = null;
+            for (Map.Entry<String, Integer> entry : map.entrySet())
+                if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
+                    maxEntry = entry;
+            int maxValueLen = maxEntry.getValue().toString().length();
+            ArrayList <String> results = new ArrayList<String>();
+            for (Map.Entry set : map.entrySet()){
+                String value = set.getValue().toString();
+                while(value.length() < maxValueLen)
+                    value = " " + value;
+                results.add(value + " of " + set.getKey());
+            }
+            Collections.sort(results);
+            Collections.reverse(results);
+            for (int i = 0; i < 100; i++)
+                System.out.println(results.get(i));
+
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
