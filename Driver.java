@@ -41,7 +41,7 @@ public class Driver {
     }
 
     // https://www.studytonight.com/java-examples/how-to-remove-punctuation-from-string-in-java
-    private static String removePunct(String line) {
+    public static String removePunct(String line) {
         return line.replaceAll("\\p{Punct}", "");
     }
 
