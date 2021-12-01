@@ -47,7 +47,7 @@ public class Driver {
     public static String[] removePunct(String[] lines) {
         String newLines = "";
         for (int i = 0; i < lines.length; i++) {
-            newLines += lines[i].replaceAll("\\p{Punct}", "") + ",";
+            newLines += removePunct(lines[i]) + ",";
         }
         return newLines.split(",");
     }
