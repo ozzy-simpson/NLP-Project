@@ -84,10 +84,11 @@ public class Driver {
                     }
                 }
 
-                // bi-gram
                 String pair = "";
                 for (int j = 0; j < words.size(); j++) { // Adapted from https://stackoverflow.com/a/31289506
                     String word = words.get(j);
+
+                    // bi-gram
                     if (j+1 < words.size()) {
                         pair = word + " " + words.get(j+1);
                         if (map.get(pair) == null) {
@@ -98,11 +99,7 @@ public class Driver {
                             map.put(pair, newValue);
                         }
                     }
-                }
-
-                // tri-gram
-                for (int j = 0; j < words.size(); j++) { // Adapted from https://stackoverflow.com/a/31289506
-                    String word = words.get(j);
+                    // tri-gram
                     if (j+2 < words.size()) {
                         pair = word + " " + words.get(j+1) + " " + words.get(j+2);
                         if (map.get(pair) == null) {
