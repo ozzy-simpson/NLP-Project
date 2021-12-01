@@ -42,7 +42,9 @@ public class Driver {
 
     // https://www.studytonight.com/java-examples/how-to-remove-punctuation-from-string-in-java
     public static String removePunct(String line) {
-        return line.replaceAll("\\p{Punct}", "");
+        String newLine = line.replaceAll("\\p{Punct}", "");
+        newLine = newLine.replaceAll("&.*?;", ""); // Remove HTML entities, from https://www.javacodeexamples.com/remove-html-tags-from-string-in-java-example/753
+        return newLine;
     }
     public static String[] removePunct(String[] lines) {
         String newLines = "";
@@ -71,14 +73,45 @@ public class Driver {
             for (int i = 0; i < records.size(); i++) {
                 Sentence tweet = records.get(i);
                 ArrayList<String> words = tweet.splitSentence(tweet.getText());
-                for (int j = 0; j < words.size(); j++) // Adapted fromhttps://stackoverflow.com/a/31289506
-                {
-                    if (map.get(words.get(j)) == null) {
-                        map.put(words.get(j), 1);
+                for (int j = 0; j < words.size(); j++) { // Adapted from https://stackoverflow.com/a/31289506
+                    String word = words.get(j);
+                    if (map.get(word) == null) {
+                        map.put(word, 1);
                     } else {
-                        int newValue = Integer.valueOf(String.valueOf(map.get(words.get(j))));
+                        int newValue = Integer.valueOf(String.valueOf(map.get(word)));
                         newValue++;
-                        map.put(words.get(j), newValue);
+                        map.put(word, newValue);
+                    }
+                }
+
+                // bi-gram
+                String pair = "";
+                for (int j = 0; j < words.size(); j++) { // Adapted from https://stackoverflow.com/a/31289506
+                    String word = words.get(j);
+                    if (j+1 < words.size()) {
+                        pair = word + " " + words.get(j+1);
+                        if (map.get(pair) == null) {
+                            map.put(pair, 1);
+                        } else {
+                            int newValue = Integer.valueOf(String.valueOf(map.get(pair)));
+                            newValue++;
+                            map.put(pair, newValue);
+                        }
+                    }
+                }
+
+                // tri-gram
+                for (int j = 0; j < words.size(); j++) { // Adapted from https://stackoverflow.com/a/31289506
+                    String word = words.get(j);
+                    if (j+2 < words.size()) {
+                        pair = word + " " + words.get(j+1) + " " + words.get(j+2);
+                        if (map.get(pair) == null) {
+                            map.put(pair, 1);
+                        } else {
+                            int newValue = Integer.valueOf(String.valueOf(map.get(pair)));
+                            newValue++;
+                            map.put(pair, newValue);
+                        }
                     }
                 }
             }
