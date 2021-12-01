@@ -73,6 +73,7 @@ public class Driver {
             for (int i = 0; i < records.size(); i++) {
                 Sentence tweet = records.get(i);
                 ArrayList<String> words = tweet.splitSentence(tweet.getText());
+                String pair = "";
                 for (int j = 0; j < words.size(); j++) { // Adapted from https://stackoverflow.com/a/31289506
                     String word = words.get(j);
                     if (map.get(word) == null) {
@@ -82,12 +83,6 @@ public class Driver {
                         newValue++;
                         map.put(word, newValue);
                     }
-                }
-
-                String pair = "";
-                for (int j = 0; j < words.size(); j++) { // Adapted from https://stackoverflow.com/a/31289506
-                    String word = words.get(j);
-
                     // bi-gram
                     if (j+1 < words.size()) {
                         pair = word + " " + words.get(j+1);
