@@ -5,6 +5,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
 import java.util.Locale;
+import java.util.Properties;
+import org.ejml.simple.SimpleMatrix;
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
+import edu.stanford.nlp.sentiment.SentimentCoreAnnotations.SentimentAnnotatedTree;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.util.CoreMap;
 
 public class Sentence{
     private String text;
@@ -92,6 +102,16 @@ public class Sentence{
             newLines += removePunct(lines[i]) + ",";
         }
         return newLines.split(",");
+    }
+
+    public int getSentiment() { 
+        Properties props = new Properties();
+        props.setProperty("annotators", "tokenize, ssplit, pos, parse, sentiment");
+        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+        Annotation annotation = pipeline.process(text);
+        CoreMap sentence = annotation.get(CoreAnnotations.SentencesAnnotation.class).get(0);
+        Tree tree = sentence.get(SentimentCoreAnnotations.SentimentAnnotatedTree.class);
+        return RNNCoreAnnotations.getPredictedClass(tree);
     }
 
     public static void main(String[] args){

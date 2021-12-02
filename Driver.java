@@ -7,6 +7,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Collections;
+import java.util.Properties;
+import org.ejml.simple.SimpleMatrix;
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
+import edu.stanford.nlp.sentiment.SentimentCoreAnnotations.SentimentAnnotatedTree;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.util.CoreMap;
 
 public class Driver {
 
@@ -25,9 +35,13 @@ public class Driver {
 
             HashMap<String, Integer> map = new HashMap<>();
 
-            // for loop for part 3, loop through arraylist and update hashmap
+            // PART 3 FOR LOOP - UPDATE HASHMAP
             for (int i = 0; i < records.size(); i++) {
                 Sentence tweet = records.get(i);
+
+                //PART 4: Loop through ArrayList, print the tweet and then the sentiment score 
+                System.out.println(tweet.getSentiment() + ": " + tweet);
+                
                 ArrayList<String> words = tweet.splitSentence(tweet.getText());
                 String pair = "";
                 for (int j = 0; j < words.size(); j++) { // Adapted from https://stackoverflow.com/a/31289506
