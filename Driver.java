@@ -33,11 +33,19 @@ public class Driver {
             }
             myReader.close();
 
+            String filter = "May 1 2009-May 20 2009";
+            ArrayList<Sentence> filteredTweets = new ArrayList<>();
+            for (int i = 0; i < records.size(); i++) {
+                if (records.get(i).keep(filter)) {
+                    filteredTweets.add(records.get(i));
+                }
+            }
+            
             HashMap<String, Integer> map = new HashMap<>();
 
             // PART 3 FOR LOOP - UPDATE HASHMAP
-            for (int i = 0; i < records.size(); i++) {
-                Sentence tweet = records.get(i);
+            for (int i = 0; i < filteredTweets.size(); i++) {
+                Sentence tweet = filteredTweets.get(i);
 
                 //PART 4: Loop through ArrayList, print the tweet and then the sentiment score 
                 System.out.println(tweet.getSentiment() + ": " + tweet);
@@ -101,3 +109,5 @@ public class Driver {
         }
     }
 }
+
+
