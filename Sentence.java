@@ -125,7 +125,7 @@ public class Sentence{
             Date dateEnd = sdf.parse(dates[1]);
             Date dateTweet = sdf.parse(timestamp);
             
-            if(dateTweet.after(dateStart) && dateTweet.before(dateEnd))
+            if(!dateTweet.after(dateEnd) && !dateTweet.before(dateStart))
             {
                 return true;
             }
