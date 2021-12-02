@@ -4,55 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-import java.text.ParseException;
-import java.util.TimeZone;
 import java.util.Map;
 import java.util.Collections;
 
 public class Driver {
-    public static Sentence convertLine(String line) {
-        String[] values = line.split("\",\"");
-        String author = values[4];
-        String timestamp = formatDate(values[2]);
-        String text = removePunct(values[5]);
-
-        Sentence converted = new Sentence(text, author, timestamp);
-        return converted;
-    }
-
-    private static String formatDate(String timestamp) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-            sdf.setTimeZone(TimeZone.getTimeZone("UTC")); // https://stackoverflow.com/a/19115247
-            Date date = sdf.parse(timestamp);
-            SimpleDateFormat newDate = new SimpleDateFormat("MMM dd yyyy");
-            newDate.setTimeZone(TimeZone.getTimeZone("UTC")); // https://stackoverflow.com/a/19115247
-            String formattedDate = newDate.format(date);
-
-            return formattedDate;
-        } catch (ParseException e) { // https://stackoverflow.com/a/28960155
-            e.printStackTrace();
-            return timestamp;
-        }
-    }
-
-    // https://www.studytonight.com/java-examples/how-to-remove-punctuation-from-string-in-java
-    public static String removePunct(String line) {
-        String newLine = line.replaceAll("\\p{Punct}", "");
-        newLine = newLine.replaceAll("&.*?;", ""); // Remove HTML entities, from https://www.javacodeexamples.com/remove-html-tags-from-string-in-java-example/753
-        return newLine;
-    }
-    public static String[] removePunct(String[] lines) {
-        String newLines = "";
-        for (int i = 0; i < lines.length; i++) {
-            newLines += removePunct(lines[i]) + ",";
-        }
-        return newLines.split(",");
-    }
 
     public static void main(String[] args) {
 
@@ -63,7 +19,7 @@ public class Driver {
             ArrayList<Sentence> records = new ArrayList<>();
 
             while (myReader.hasNextLine()) {
-                records.add(convertLine(myReader.nextLine()));
+                records.add(Sentence.convertLine(myReader.nextLine()));
             }
             myReader.close();
 

@@ -8,12 +8,12 @@ public class ExtractTest{
         
         Sentence testSentence = new Sentence(text, author, timestamp);
 
-        System.out.println("test1: " + (testSentence.equals(Driver.convertLine(line))));
-        System.out.println("expected: " + text + "\n" + "returned: " + Driver.convertLine(line).getText());
+        System.out.println("test1: " + (testSentence.equals(Sentence.convertLine(line))));
+        System.out.println("expected: " + text + "\n" + "returned: " + Sentence.convertLine(line).getText());
 
         System.out.println();
 
-        System.out.println("test2: " + (testSentence.equals(Driver.convertLine(line))));
-        System.out.println("expected: " + timestamp + "\n" + "returned: " + Driver.convertLine(line).getTimestamp());
+        System.out.println("test2: " + (testSentence.equals(Sentence.convertLine(line))));
+        System.out.println("expected: " + timestamp + "\n" + "returned: " + Sentence.convertLine(line).getTimestamp());
     }
 }
