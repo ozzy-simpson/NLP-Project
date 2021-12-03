@@ -114,6 +114,31 @@ public class Sentence{
         return RNNCoreAnnotations.getPredictedClass(tree);
     }
 
+    public boolean keep(String temporalRange)
+    {   
+        try {
+            String[] dates = temporalRange.split("-");
+
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy", Locale.ENGLISH);
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC")); // https://stackoverflow.com/a/19115247
+            Date dateStart = sdf.parse(dates[0]);
+            Date dateEnd = sdf.parse(dates[1]);
+            Date dateTweet = sdf.parse(timestamp);
+            
+            if(!dateTweet.after(dateEnd) && !dateTweet.before(dateStart))
+            {
+                return true;
+            }
+            else
+            {
+                return false; 
+            }
+        } catch (ParseException e) { // https://stackoverflow.com/a/28960155
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static void main(String[] args){
     }
 
