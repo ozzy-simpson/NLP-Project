@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Collections;
@@ -33,7 +34,7 @@ public class Driver {
             }
             myReader.close();
 
-            String filter = "May 1 2009-May 20 2009";
+            String filter = "June 1 2009-June 30 2009";
             ArrayList<Sentence> filteredTweets = new ArrayList<>();
             for (int i = 0; i < records.size(); i++) {
                 if (records.get(i).keep(filter)) {
@@ -42,6 +43,7 @@ public class Driver {
             }
             
             HashMap<String, Integer> map = new HashMap<>();
+            HashMap<Integer, Integer> sentiments = new HashMap<>();
 
             // PART 3 FOR LOOP - UPDATE HASHMAP
             for (int i = 0; i < filteredTweets.size(); i++) {
@@ -49,6 +51,14 @@ public class Driver {
 
                 //PART 4: Loop through ArrayList, print the tweet and then the sentiment score 
                 System.out.println(tweet.getSentiment() + ": " + tweet);
+
+                if (sentiments.get(tweet.getSentiment()) == null) {
+                    sentiments.put(tweet.getSentiment(), 1);
+                } else {
+                    int newValue = Integer.valueOf(String.valueOf(sentiments.get(tweet.getSentiment())));
+                    newValue++;
+                    sentiments.put(tweet.getSentiment(), newValue);
+                }
                 
                 ArrayList<String> words = tweet.splitSentence(tweet.getText());
                 String pair = "";
@@ -102,6 +112,9 @@ public class Driver {
             Collections.reverse(results);
             for (int i = 0; i < 100; i++)
                 System.out.println(results.get(i));
+
+            System.out.println("Sentiment counts: "+Arrays.asList(sentiments)); 
+
 
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
